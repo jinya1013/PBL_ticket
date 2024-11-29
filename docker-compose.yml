@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"  # Expose Next.js port
+    volumes:
+      - ./frontend:/app  # Mount the entire frontend directory
+      - /app/node_modules  # Isolate node_modules between host and container
+    working_dir: /app  # Set the working directory inside the container
+    environment:
+      - NODE_ENV=development
+    command: "npm run dev"  # Start Next.js in development mode
+
+volumes: {}

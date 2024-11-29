@@ -1,0 +1,26 @@
+# Node.js-related
+node_modules/             # Dependency libraries for frontend
+frontend/node_modules/    # Explicitly for frontend (if needed)
+
+# Python-related
+__pycache__/              # Python cache directory
+*.py[cod]                 # Compiled Python files
+*.egg-info/               # Python package metadata directory
+backend/.venv/            # Python virtual environment (if used)
+
+# Environment variables
+.env                      # Environment variable file for both frontend/backend
+
+# Docker-related
+*.log                     # Log files
+docker-compose.override.yml # Override file for local development (optional)
+
+# OS-specific files
+.DS_Store                 # macOS metadata
+Thumbs.db                 # Windows metadata
+
+# Editor/IDE
+.vscode/                  # VS Code settings
+.idea/                    # IntelliJ IDEA settings
+*.swp                     # Vim temporary files
+*.swo

@@ -1,0 +1,17 @@
+# Python-related
+__pycache__/              # Python cache directory
+*.py[cod]                 # Compiled Python files
+*.egg-info/               # Package metadata
+*.pyo                     # Optimized Python files
+
+# Virtual environments
+.venv/                    # Virtual environment
+env/                      # Alternative virtual environment directory
+pip-log.txt               # pip logs
+pip-delete-this-directory.txt # Temporary pip cleanup marker
+
+# Environment variables
+.env                      # Environment variable file
+
+# Logs
+*.log                     # General log files
