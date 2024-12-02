@@ -1,0 +1,39 @@
+.subscription-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #DD4281;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 120px;
+  box-sizing: border-box;
+  margin-left: auto; /* 右寄せのために追加 */
+}
+
+.button-left {
+  font-size: 64px;
+  font-weight: bold;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.button-right {
+  font-size: 24px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.button-details {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}

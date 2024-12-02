@@ -1,0 +1,52 @@
+.internet-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background-color: #429448;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 120px;
+  box-sizing: border-box;
+  margin-right: auto;
+}
+
+.internet-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 65%;  /* テキストエリアの幅を確保 */
+}
+
+.internet-button-top {
+  font-size: 16px;
+  font-weight: bold;
+  transform: scaleY(1.5);
+  width: 100%;      /* 親要素の幅いっぱいに */
+  word-break: keep-all;  /* 日本語の単語の途中での改行を防ぐ */
+  white-space: normal;   /* テキストの折り返しを許可 */
+}
+
+.internet-button-bottom {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 8px;
+  transform: scaleY(1.5);
+  width: 100%;      /* 親要素の幅いっぱいに */
+  word-break: keep-all;  /* 日本語の単語の途中での改行を防ぐ */
+}
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.internet-icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}

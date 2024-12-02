@@ -1,0 +1,28 @@
+.discount-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #40413F;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 240px;
+  box-sizing: border-box;
+  margin-right: auto; /* 右寄せのために追加 */
+}
+
+.button-top {
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button-bottom {
+  font-size: 64px;
+  font-weight: bold;
+  text-align: center;
+}
