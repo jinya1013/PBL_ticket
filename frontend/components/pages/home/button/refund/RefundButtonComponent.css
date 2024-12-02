@@ -1,0 +1,38 @@
+.refund-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: #B425EE;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 120px;
+  box-sizing: border-box;
+  margin-left: auto;
+}
+
+.refund-button-text {
+  font-size: 48px;
+  font-weight: bold;
+  margin-right: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 追加: テキストを中央揃え */
+  text-align: center; /* 追加: テキストを中央揃え */
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.refund-icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}

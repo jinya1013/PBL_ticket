@@ -1,0 +1,45 @@
+.holiday-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: #1301F5;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 120px;
+  box-sizing: border-box;
+  margin-right: auto;
+}
+
+.holiday-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 追加: テキストを中央揃え */
+  text-align: center; /* 追加: テキストを中央揃え */
+}
+
+.holiday-button-top {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.holiday-button-bottom {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.club-icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
