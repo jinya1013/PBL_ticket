@@ -1,23 +1,23 @@
-import { DiscountButtonComponent } from '../button/discount/DiscountButtonComponent';
-import { HolidayButtonComponent } from '../button/holiday/HolidayButtonComponent';
-import { InternetQRButtonComponent } from '../button/internet_qr/InternetQRButtonComponent';
-import { PurchaseButtonComponent } from '../button/purchase/PurchaseButtonComponent';
-import { RefundButtonComponent } from '../button/refund/RefundButtonComponent';
-import { ReservedSeatButtonComponent } from '../button/seat/ReservedSeatButtonComponent';
-import { UnreservedSeatButtonComponent } from '../button/seat/UnreservedSeatButtonComponent';
-import { SubscriptionButtonComponent } from '../button/subscription/SubscriptionButtonComponent';
-export const TicketBody = () => {
+import { DiscountButtonComponent } from '../button/DiscountButtonComponent';
+import { HolidayButtonComponent } from '../button/HolidayButtonComponent';
+import { InternetQRButtonComponent } from '../button/InternetQRButtonComponent';
+import { PurchaseButtonComponent } from '../button/PurchaseButtonComponent';
+import { RefundButtonComponent } from '../button/RefundButtonComponent';
+import { ReservedSeatButtonComponent } from '../button/ReservedSeatButtonComponent';
+import { SubscriptionButtonComponent } from '../button/SubscriptionButtonComponent';
+import { UnreservedSeatButtonComponent } from '../button/UnreservedSeatButtonComponent';
+export const TicketBody =  ({ language = 'ja' }: { language?: 'en' | 'ja' | 'zh' | 'ko' }) => {
   return (
     <>
       <div className="grid grid-cols-2 gap-4 bg-[#DCDCDC]">
-        <ReservedSeatButtonComponent />
-        <PurchaseButtonComponent />
-        <UnreservedSeatButtonComponent />
-        <DiscountButtonComponent />
-        <SubscriptionButtonComponent />
-        <HolidayButtonComponent />
-        <RefundButtonComponent />
-        <InternetQRButtonComponent />
+        <ReservedSeatButtonComponent  language={language}/>
+        <PurchaseButtonComponent language={language}  />
+        <UnreservedSeatButtonComponent language={language}/>
+        <DiscountButtonComponent language={language}/>
+        <SubscriptionButtonComponent language={language}/>
+        <HolidayButtonComponent language={language}/>
+        <RefundButtonComponent language={language}/>
+        <InternetQRButtonComponent language={language}/>
       </div>
     </>
   );
