@@ -59,7 +59,7 @@ export async function GET(request: Request) {
     const children = parseInt(searchParams.get('children') || '0');
     const isHiragana = searchParams.get('isHiragana') === 'true';
 
-    const result = await getRoutePayment(from, to, adults, children, isHiragana);
+    const result = await getLinesAndDistance(from, to, isHiragana);
     return Response.json(result);
   } catch (error) {
     return Response.json({ error }, { status: 500 });
