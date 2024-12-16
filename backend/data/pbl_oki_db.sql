@@ -50,7 +50,7 @@ begin
 				(count(transit_company)-1)::int4 transfers,
 				sum(fare_adult)::int4 fare_adult,
 				sum(fare_kids)::int4 fare_kids
-			from other.get_lines_and_distance(
+			from mobility.get_lines_and_distance(
 				'%1$s',
 				'%2$s',
 				$1
@@ -72,7 +72,7 @@ $_$;
 -- Name: get_lines_and_distance(character varying, character varying, boolean); Type: FUNCTION; Schema: mobility; Owner: -
 --
 
-CREATE FUNCTION mobility.get_lines_and_distance(_src_station character varying, _trg_station character varying, _jap boolean DEFAULT false) RETURNS TABLE(transit_company character varying, distance real)
+CREATE OR REPLACE FUNCTION mobility.get_lines_and_distance(_src_station character varying, _trg_station character varying, _jap boolean DEFAULT false) RETURNS TABLE(transit_company character varying, distance real)
     LANGUAGE plpgsql
     AS $_$
 begin
@@ -82,7 +82,7 @@ begin
 			select 
 				transit_company,
 				round(sum(st_length(st_transform(geom,32654))::numeric/1000),1)::float4 distance
-			from other.get_shortest_route(
+			from mobility.get_shortest_route(
 				'%1$s',
 				'%2$s',
 				$1
@@ -111,7 +111,7 @@ begin
 		$q$
 		select 
 			(fare_adult * $2) + (fare_kids * $3) payment
-		from other.get_fare_prices(
+		from mobility.get_fare_prices(
 				'%1$s','%2$s',$1
 		);
 		$q$, _src_station, _trg_station
@@ -126,7 +126,7 @@ $_$;
 -- Name: get_shortest_route(character varying, character varying, boolean); Type: FUNCTION; Schema: mobility; Owner: -
 --
 
-CREATE FUNCTION mobility.get_shortest_route(_src_station character varying, _trg_station character varying, _jap boolean DEFAULT false) RETURNS TABLE(pid integer, transit_company character varying, transit_line character varying, agg_cost integer, fare integer, geom public.geometry)
+CREATE OR REPLACE FUNCTION mobility.get_shortest_route(_src_station character varying, _trg_station character varying, _jap boolean DEFAULT false) RETURNS TABLE(pid integer, transit_company character varying, transit_line character varying, agg_cost integer, fare integer, geom public.geometry)
     LANGUAGE plpgsql
     AS $_$
 declare
@@ -143,8 +143,8 @@ begin
 			 d.agg_cost::int4,n.fare::int4,st_transform(n.geom,4326) geom
 		from pgr_dijkstra(
 			'select pid id, source, target, cost_time cost, cost_time_reverse reverse_cost from mobility.oki_network', 
-			(select pid from mobility.stations where %1$I = '%2$s' limit 1), 
-			(select pid from mobility.stations where %1$I = '%3$s' limit 1),
+			(select pid from mobility.stations where %1$I ilike '%2$s%%' limit 1),
+			(select pid from mobility.stations where %1$I ilike '%3$s%%' limit 1),
 			false
 		) d
 		join mobility.oki_network n on n.pid = d.edge;
