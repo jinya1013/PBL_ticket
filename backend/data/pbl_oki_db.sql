@@ -143,8 +143,8 @@ begin
 			 d.agg_cost::int4,n.fare::int4,st_transform(n.geom,4326) geom
 		from pgr_dijkstra(
 			'select pid id, source, target, cost_time cost, cost_time_reverse reverse_cost from mobility.oki_network', 
-			(select pid from mobility.stations where %1$I = '%2$s' limit 1), 
-			(select pid from mobility.stations where %1$I = '%3$s' limit 1),
+			(select pid from mobility.stations where %1$I ilike '%2$s%%' limit 1),
+			(select pid from mobility.stations where %1$I ilike '%3$s%%' limit 1),
 			false
 		) d
 		join mobility.oki_network n on n.pid = d.edge;
