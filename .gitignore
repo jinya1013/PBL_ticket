@@ -24,3 +24,6 @@ Thumbs.db                 # Windows metadata
 .idea/                    # IntelliJ IDEA settings
 *.swp                     # Vim temporary files
 *.swo
+
+.DS_Store
+.env.local
