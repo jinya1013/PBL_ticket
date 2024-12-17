@@ -168,7 +168,7 @@ begin
 			false
 		) d
 		join mobility.oki_network n on n.pid = d.edge
-		order by agg_cost;
+		order by seq,agg_cost;
 $q1$, _station_name_search, _src_station_colname, _trg_station_colname, _src_station, _trg_station
 	);
 end;
