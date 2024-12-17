@@ -67,13 +67,21 @@ export default function PurchasePage() {
   useEffect(() => {
     const fetchSuggestions = async (query: string, isFrom: boolean) => {
       if (!query) {
-        isFrom ? setFromSuggestions([]) : setToSuggestions([]);
+        if (isFrom) {
+          setFromSuggestions([]);
+        } else {
+          setToSuggestions([]);
+        }
         return;
       }
       try {
         const res = await fetch(`/api/stations/suggest?query=${query}&isHiragana=false`);
         const data = await res.json();
-        isFrom ? setFromSuggestions(data) : setToSuggestions(data);
+        if (isFrom) {
+          setFromSuggestions(data);
+        } else {
+          setToSuggestions(data);
+        }
       } catch (error) {
         console.error('Failed to fetch suggestions:', error);
       }
