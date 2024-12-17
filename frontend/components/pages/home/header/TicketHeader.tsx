@@ -1,4 +1,15 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+
 export const TicketHeader = ({ language = 'ja', setLanguage }: { language?: 'en' | 'ja' | 'zh' | 'ko', setLanguage: (lang: 'en' | 'ja' | 'zh' | 'ko') => void }) => {
+  const router = useRouter();
+
+  const handleLanguageChange = (lang: 'en' | 'ja' | 'zh' | 'ko') => {
+    setLanguage(lang);
+    router.push(`?lang=${lang}`);
+  };
+
   const getContent = () => {
     switch (language) {
       case 'en':
@@ -50,25 +61,25 @@ export const TicketHeader = ({ language = 'ja', setLanguage }: { language?: 'en'
       </span>
       <div className="flex gap-2.5">
         <button 
-          onClick={() => setLanguage('ja')}
+          onClick={() => handleLanguageChange('ja')}
           className="bg-gray-500 text-white rounded px-2.5 py-1.5 cursor-pointer text-[32px]"
         >
           {content.japanese}
         </button>
         <button 
-          onClick={() => setLanguage('en')}
+          onClick={() => handleLanguageChange('en')}
           className="bg-gray-500 text-white rounded px-2.5 py-1.5 cursor-pointer text-[32px]"
         >
           {content.english}
         </button>
         <button 
-          onClick={() => setLanguage('zh')}
+          onClick={() => handleLanguageChange('zh')}
           className="bg-gray-500 text-white rounded px-2.5 py-1.5 cursor-pointer text-[32px]"
         >
           {content.chinese}
         </button>
         <button 
-          onClick={() => setLanguage('ko')}
+          onClick={() => handleLanguageChange('ko')}
           className="bg-gray-500 text-white rounded px-2.5 py-1.5 cursor-pointer text-[32px]"
         >
           {content.korean}

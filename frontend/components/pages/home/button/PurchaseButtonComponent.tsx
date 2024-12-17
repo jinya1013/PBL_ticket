@@ -6,8 +6,8 @@ export const PurchaseButtonComponent = ({ language = 'ja' }: { language?: 'en' |
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/purchase");
-  };
+    router.push(`/purchase?lang=${language}`);
+  };  
 
   const getContent = () => {
     switch (language) {
