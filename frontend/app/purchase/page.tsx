@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { dayOfWeek, defaultStationNames, formatMonthDate, translations } from './lang';
 type Language = 'en' | 'ja' | 'zh' | 'ko';
 
@@ -26,7 +26,7 @@ export default function PurchasePage() {
     station_name: string;
   }
   const [fromSuggestions, setFromSuggestions] = useState<StationSuggestion[]>([]);
-const [toSuggestions, setToSuggestions] = useState<StationSuggestion[]>([]);
+  const [toSuggestions, setToSuggestions] = useState<StationSuggestion[]>([]);
 
   interface FareDetails {
     get_payment: number;
@@ -36,7 +36,7 @@ const [toSuggestions, setToSuggestions] = useState<StationSuggestion[]>([]);
 
   const t = translations[language];
 
-  const fetchFareDetails = async () => {
+  const fetchFareDetails = useCallback(async () => {
   if (!fromStation || !toStation) return;
   
   setIsLoadingFare(true);
@@ -48,11 +48,12 @@ const [toSuggestions, setToSuggestions] = useState<StationSuggestion[]>([]);
     console.error(t.fareNotAvailable, error);
   } finally {
     setIsLoadingFare(false);
-    }
-  };  
+  }
+  }, [fromStation, toStation, adults, children, t]);
+
   useEffect(() => {
     fetchFareDetails();
-  }, [fromStation, toStation, adults, children]);
+  }, [fetchFareDetails]);
 
   useEffect(() => {
     const checkIfMobile = () => {
