@@ -22,9 +22,16 @@ export default function PurchasePage() {
   const [isEditingTo, setIsEditingTo] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showFromStationModal, setShowFromStationModal] = useState(false);
-  const [fromSuggestions, setFromSuggestions] = useState([]);
-  const [toSuggestions, setToSuggestions] = useState([]);
-  const [fareDetails, setFareDetails] = useState<any>(null);
+  interface StationSuggestion {
+    station_name: string;
+  }
+  const [fromSuggestions, setFromSuggestions] = useState<StationSuggestion[]>([]);
+const [toSuggestions, setToSuggestions] = useState<StationSuggestion[]>([]);
+
+  interface FareDetails {
+    get_payment: number;
+  }
+  const [fareDetails, setFareDetails] = useState<FareDetails | null>(null);
   const [isLoadingFare, setIsLoadingFare] = useState(false);
 
   const t = translations[language];
@@ -154,7 +161,7 @@ export default function PurchasePage() {
                       />
                       {fromSuggestions.length > 0 && (
                         <div className="absolute z-10 w-full bg-white border rounded mt-1 max-h-48 overflow-y-auto">
-                          {fromSuggestions.map((suggestion: any, index: number) => (
+                          {fromSuggestions.map((suggestion: StationSuggestion, index: number) => (
                             <div
                               key={index}
                               className="px-2 py-1 hover:bg-gray-100 cursor-pointer"
@@ -187,7 +194,7 @@ export default function PurchasePage() {
                       />
                       {toSuggestions.length > 0 && (
                         <div className="absolute z-10 w-full bg-white border rounded mt-1 max-h-48 overflow-y-auto">
-                          {toSuggestions.map((suggestion: any, index: number) => (
+                          {toSuggestions.map((suggestion: StationSuggestion, index: number) => (
                             <div
                               key={index}
                               className="px-2 py-1 hover:bg-gray-100 cursor-pointer"
