@@ -22,6 +22,10 @@ function SearchParamsWrapper({ onLanguageChange }: {
 export default function Home() {
   const [language, setLanguage] = useState<'en' | 'ja' | 'zh' | 'ko'>('ja');
 
+  useEffect(() => {
+    document.body.style.zoom = '125%';
+  }, []);
+
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>

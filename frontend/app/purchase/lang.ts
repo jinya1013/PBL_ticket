@@ -1,6 +1,8 @@
 export const translations = {
   ja: {
     sectionTitle: 'ご利用になる区間・日時・人数を',
+    sectionTitle1: 'ご利用になる',
+    sectionTitle2: ' 区間・日時・人数を',
     sectionSubtitle: 'お選びください',
     timeNote: '所要時間が短い組み合わせを優先してご案内します。',
     departureStation: '出発駅',
@@ -41,10 +43,13 @@ export const translations = {
     inputContent: 'ここまでの入力内容',
     fare: '運賃',
     calculating: '運賃を計算中です...',
-    fareNotAvailable: '運賃が取得できませんでした。'
+    fareNotAvailable: '運賃が取得できませんでした。',
+    purchaseModalButton: '購入',
   },
   en: {
     sectionTitle: 'Please select section, date, time, and number of passengers',
+    sectionTitle1: 'Please select',
+    sectionTitle2: ' section, date, time, and number of passengers',
     sectionSubtitle: '',
     timeNote: 'We will prioritize combinations with shorter travel times.',
     departureStation: 'Departure Station',
@@ -85,10 +90,13 @@ export const translations = {
     inputContent: 'Input Content',
     fare: 'Fare',
     calculating: 'Calculating fare...',
-    fareNotAvailable: 'Fare not available.'
+    fareNotAvailable: 'Fare not available.',
+    purchaseModalButton: 'Purchase',
   },
   zh: {
     sectionTitle: '请选择区间、日期、时间和乘客人数',
+    sectionTitle1: '请选择',
+    sectionTitle2: ' 区间、日期、时间和乘客人数',
     sectionSubtitle: '',
     timeNote: '我们将优先考虑行程时间较短的组合。',
     departureStation: '出发站',
@@ -129,10 +137,13 @@ export const translations = {
     inputContent: '输入内容',
     fare: '运费',
     calculating: '计算运费...',
-    fareNotAvailable: '运费无法获取。'
+    fareNotAvailable: '运费无法获取。',
+    purchaseModalButton: '购买',
   },
   ko: {
     sectionTitle: '구간, 날짜, 시간 및 승객 수를 선택하십시오',
+    sectionTitle1: '구간, 날짜, 시간 및 승객 수를',
+    sectionTitle2: ' 선택하십시오',
     sectionSubtitle: '',
     timeNote: '소요 시간이 짧은 조합을 우선적으로 안내합니다.',
     departureStation: '출발역',
@@ -173,7 +184,8 @@ export const translations = {
     inputContent: '입력 내용',
     fare: '요금',
     calculating: '요금을 계산 중입니다...',
-    fareNotAvailable: '요금을 얻을 수 없습니다.'
+    fareNotAvailable: '요금을 얻을 수 없습니다.',
+    purchaseModalButton: '구매',
   },
 };
 

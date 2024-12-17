@@ -21,7 +21,7 @@ export const UnreservedSeatButtonComponent = ({ language = 'ja' }: { language?: 
         };
       case 'ko':
         return {
-          title: '自由석',
+          title: '자유석',
           items: [
             '신칸센/일반선',
             '신칸센~일반선 환승 구매',
