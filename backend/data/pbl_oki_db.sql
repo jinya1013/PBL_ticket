@@ -126,32 +126,53 @@ $_$;
 -- Name: get_shortest_route(character varying, character varying, boolean); Type: FUNCTION; Schema: mobility; Owner: -
 --
 
-CREATE OR REPLACE FUNCTION mobility.get_shortest_route(_src_station character varying, _trg_station character varying, _jap boolean DEFAULT false) RETURNS TABLE(pid integer, transit_company character varying, transit_line character varying, agg_cost integer, fare integer, geom public.geometry)
-    LANGUAGE plpgsql
-    AS $_$
+create or replace function mobility.get_shortest_route(_src_station varchar, _trg_station varchar, _jap bool default false)
+returns table (
+	pid int4,
+	transit_company varchar,
+	transit_line varchar,
+	src_station varchar,
+	trg_station varchar,
+	agg_cost int4,
+	geom geometry(linestring,4326)
+) as 
+$function$
 declare
 	_station_name_search varchar;
+	_src_station_colname varchar;
+	_trg_station_colname varchar;
 begin
 	if _jap = true then _station_name_search :='station_name_kanji';
 	else _station_name_search :='station_name_en';
 	end if;
 
+	if _jap = true then _src_station_colname :='src_station';
+	else _src_station_colname :='src_english';
+	end if;
+
+	if _jap = true then _trg_station_colname :='trg_station';
+	else _trg_station_colname :='trg_english';
+	end if;
+
 	return query execute format(
 		$q1$
 		select 
-			(row_number() over())::int4 pid, transit_company::varchar, transit_line::varchar,
-			 d.agg_cost::int4,n.fare::int4,st_transform(n.geom,4326) geom
+			(row_number() over(order by agg_cost))::int4 pid, transit_company::varchar, transit_line::varchar,
+			n.%2$I src_station, n.%3$I trg_station,
+			d.agg_cost::int4,
+			st_transform(n.geom,4326) geom
 		from pgr_dijkstra(
 			'select pid id, source, target, cost_time cost, cost_time_reverse reverse_cost from mobility.oki_network', 
-			(select pid from mobility.stations where %1$I ilike '%2$s%%' limit 1),
-			(select pid from mobility.stations where %1$I ilike '%3$s%%' limit 1),
+			(select pid from mobility.stations where %1$I ilike '%4$s%%' limit 1), 
+			(select pid from mobility.stations where %1$I ilike '%5$s%%' limit 1),
 			false
 		) d
-		join mobility.oki_network n on n.pid = d.edge;
-$q1$, _station_name_search, _src_station, _trg_station
+		join mobility.oki_network n on n.pid = d.edge
+		order by agg_cost;
+$q1$, _station_name_search, _src_station_colname, _trg_station_colname, _src_station, _trg_station
 	);
 end;
-$_$;
+$function$ language plpgsql;
 
 
 --
@@ -176,6 +197,81 @@ begin
 	);
 end;
 $_$;
+
+create or replace function mobility.get_simplified_route(
+	_src_station varchar, 
+	_trg_station varchar, 
+	_jap bool default false
+) returns table (
+	pid int4,
+	transit_company varchar,
+	transit_line varchar,
+	station varchar
+) as
+$function$
+declare
+	_station_name_search varchar;
+begin
+	if _jap = true then _station_name_search :='station_name_kanji';
+	else _station_name_search :='station_name_en';
+	end if;
+
+	return query execute format(
+		$q$
+		with get_values_for_filter as (
+			select 
+				pid,transit_company,transit_line,
+				src_station, trg_station, 
+				first_value(pid) over (partition by transit_line order by pid) first_row_partition,
+				first_value(pid) over (partition by transit_line order by pid desc) last_row_partition,
+				lag(src_station,1) over w lag_src,lag(trg_station,1) over w lag_trg,
+				lead(src_station,1) over w lead_src,lead(trg_station,1) over w lead_trg,
+				agg_cost,geom	
+			from (
+				select *
+				from mobility.get_shortest_route(
+					'%1$s',
+					'%2$s',
+					$1
+				)
+				where src_station not in ('transfer','delay') and trg_station not in ('transfer','delay')
+			)
+			window w as (partition by transit_line)
+			order by agg_cost
+		) --select * from get_values_for_filter;
+		, filter_first_and_last as (
+			select 
+				a.pid,a.transit_company,a.transit_line,
+				case 
+					when l.station is null 
+						then array[lag(station,1) over(order by pid) , lead(station,1) over(order by pid)]
+					else array[station]
+				end station
+			from get_values_for_filter a
+			,lateral(
+				select 
+					coalesce(
+						coalesce(
+							case when pid = first_row_partition and (src_station not in (lead_src,lead_trg)) then src_station else null end,
+							case when pid = first_row_partition and (trg_station not in (lead_src,lead_trg)) then trg_station else null end
+						),
+						coalesce(
+							case when pid = last_row_partition and (src_station not in (lag_src,lag_trg)) then src_station else null end,
+							case when pid = last_row_partition and (trg_station not in (lag_src,lag_trg)) then trg_station else null end
+						)
+					) station
+			) l
+			where pid = first_row_partition or pid = last_row_partition
+		)
+		select 
+			(row_number() over())::int4 pid,transit_company,transit_line,l.station
+		from filter_first_and_last
+		,lateral(select unnest(station) station) l;
+		$q$, _src_station, _trg_station,_jap
+	) using _jap;
+end
+$function$ language plpgsql;
+
 
 
 SET default_tablespace = '';
