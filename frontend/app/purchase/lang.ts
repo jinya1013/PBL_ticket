@@ -204,8 +204,8 @@ export const formatMonthDate = {
 };
 
 export const defaultStationNames = {
-  en: 'Takasaki',
-  ja: '高崎',
-  zh: '高崎',
-  ko: '다카사키'
+  en: 'Shinbashi',
+  ja: '新橋',
+  zh: '新橋',
+  ko: '신아와'
 };

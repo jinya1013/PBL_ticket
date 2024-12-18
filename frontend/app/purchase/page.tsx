@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useState } from 'react';
-import { dayOfWeek, defaultStationNames, formatMonthDate, translations } from './lang';
+import { dayOfWeek, formatMonthDate, translations } from './lang';
 type Language = 'en' | 'ja' | 'zh' | 'ko';
 
 function SearchParamsWrapper({ onLanguageChange }: { onLanguageChange: (lang: Language) => void }) {
@@ -26,7 +26,7 @@ export default function PurchasePage() {
   const [isEditingDateTime, setIsEditingDateTime] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDeparture, setIsDeparture] = useState(true);
-  const [fromStation, setFromStation] = useState(defaultStationNames[language]);
+  const [fromStation, setFromStation] = useState('Shinbashi');
   const [toStation, setToStation] = useState('');
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
