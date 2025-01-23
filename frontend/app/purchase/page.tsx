@@ -16,7 +16,7 @@ function SearchParamsWrapper({ onLanguageChange }: { onLanguageChange: (lang: La
   return null;
 }
 
-export default function PurchasePage() {
+function PurchasePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [language, setLanguage] = useState<Language>('ja');
@@ -53,7 +53,7 @@ export default function PurchasePage() {
       setToStation(toStationFromQuery);
     }
   }, [searchParams]);
-  
+
   interface StationSuggestion {
     station_name: string;
   }
@@ -515,5 +515,13 @@ export default function PurchasePage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function PurchasePage() {
+  return (
+    <Suspense fallback={<div>Loading Purchase Page...</div>}>
+      <PurchasePageContent />
+    </Suspense>
   );
 }
