@@ -70,7 +70,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
             onClick={() => setShowScanner(false)} // スキャナーを閉じるボタン
             className="mt-4 bg-gray-500 text-white p-2 rounded"
           >
-            スキャナーを閉じる
+            Close the scanner
           </button>
         </div>
       )}

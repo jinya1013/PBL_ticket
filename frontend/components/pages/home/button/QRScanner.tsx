@@ -58,7 +58,7 @@ export const QRScanner = () => {
         onClick={handleDummyScan}
         style={{ marginTop: '16px', padding: '8px 16px', background: '#CCCCCC' }}
       >
-        スキャン
+        Scan
       </button>
     </div>
   );
