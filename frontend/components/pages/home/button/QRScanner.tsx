@@ -46,7 +46,7 @@ export const QRScanner = () => {
       stream.getTracks().forEach((track) => track.stop());
     }
     // 指定のページにクエリパラメータを付与して遷移する
-    router.push('/purchase?lang=en&adults=2&fromStation=Komaba-Todaimae&toStation=Hongo3-chome');
+    router.push(`/purchase?lang=en&adults=2&fromStation=Komaba-Todaimae&toStation=Hongo 3-chome`);
   };
 
   return (

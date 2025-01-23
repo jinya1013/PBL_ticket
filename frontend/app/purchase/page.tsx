@@ -18,6 +18,7 @@ function SearchParamsWrapper({ onLanguageChange }: { onLanguageChange: (lang: La
 
 export default function PurchasePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [language, setLanguage] = useState<Language>('ja');
   const [isEditingPassengers, setIsEditingPassengers] = useState(false);
   const [adults, setAdults] = useState(1);
@@ -32,6 +33,27 @@ export default function PurchasePage() {
   const [isEditingTo, setIsEditingTo] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showFromStationModal, setShowFromStationModal] = useState(false);
+
+  useEffect(() => {
+    const langFromQuery = searchParams?.get('lang');
+    const adultsFromQuery = searchParams?.get('adults');
+    const fromStationFromQuery = searchParams?.get('fromStation');
+    const toStationFromQuery = searchParams?.get('toStation');
+
+    if (langFromQuery) {
+      setLanguage(langFromQuery as Language);
+    }
+    if (adultsFromQuery && !isNaN(Number(adultsFromQuery))) {
+      setAdults(Number(adultsFromQuery));
+    }
+    if (fromStationFromQuery) {
+      setFromStation(fromStationFromQuery);
+    }
+    if (toStationFromQuery) {
+      setToStation(toStationFromQuery);
+    }
+  }, [searchParams]);
+  
   interface StationSuggestion {
     station_name: string;
   }
