@@ -1,8 +1,16 @@
-import { useState } from 'react';
-import { QRScanner } from './QRScanner'; // QRScanner コンポーネントをインポート
+/**
+ * 日本語での説明:
+ * このコードでは、QRコード読み取りの機能は実際には行わず、
+ * ボタンをクリックすると /purchase?lang=en に移動し、
+ * クエリパラメータとして大人2名、出発駅「Komaba-Todaimae」、
+ * 到着駅「Hongo3-chome」を付与して遷移するだけの「ダミーQRボタン」を実装しています。
+ */
+
+// Start of Selection
+import { useRouter } from 'next/navigation';
 
 export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' | 'zh' | 'ko' }) => {
-  const [showScanner, setShowScanner] = useState(false); // スキャナー表示用の状態管理
+  const router = useRouter();
 
   const getContent = () => {
     switch (language) {
@@ -39,41 +47,30 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
 
   const content = getContent();
 
+  // ダミーのQRコードボタンを押すと実行される
   const handleQRClick = () => {
-    // QRScanner を表示
-    setShowScanner(true);
+    // adults=2, fromStation=Komaba-Todaimae, toStation=Hongo3-chome をクエリパラメータとして付与してリダイレクト
+    router.push('/purchase?lang=en&adults=2&fromStation=Komaba-Todaimae&toStation=Hongo3-chome');
   };
 
   return (
     <div>
-      {!showScanner ? (
-        <div
-          onClick={handleQRClick}
-          className="flex items-center justify-center gap-5 bg-[#FFFF92] text-[#000099] rounded p-5 w-[400px] shadow-md h-[120px] box-border mr-auto cursor-pointer hover:opacity-80"
-        >
-          <div className="flex flex-col items-center text-center">
-            <div className="text-[32px] font-bold">{content.qrCode}</div>
-            <div className="text-[32px] font-bold mt-2">{content.scan}</div>
-          </div>
-          <div className="flex justify-center items-center">
-            <img
-              src="/qr.png"
-              alt="QR Icon"
-              className="w-[60%] h-[60%] object-contain"
-            />
-          </div>
+      <div
+        onClick={handleQRClick}
+        className="flex items-center justify-center gap-5 bg-[#FFFF92] text-[#000099] rounded p-5 w-[400px] shadow-md h-[120px] box-border mr-auto cursor-pointer hover:opacity-80"
+      >
+        <div className="flex flex-col items-center text-center">
+          <div className="text-[32px] font-bold">{content.qrCode}</div>
+          <div className="text-[32px] font-bold mt-2">{content.scan}</div>
         </div>
-      ) : (
-        <div>
-          <QRScanner /> {/* QRScanner を表示 */}
-          <button
-            onClick={() => setShowScanner(false)} // スキャナーを閉じるボタン
-            className="mt-4 bg-gray-500 text-white p-2 rounded"
-          >
-            スキャナーを閉じる
-          </button>
+        <div className="flex justify-center items-center">
+          <img
+            src="/qr.png"
+            alt="QR Icon"
+            className="w-[60%] h-[60%] object-contain"
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 };
