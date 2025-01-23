@@ -58,8 +58,11 @@ export const QRScanner = ({ language = 'ja' }: { language?: 'en' | 'ja' | 'zh' |
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach((track) => track.stop());
     }
-    // 指定のページにクエリパラメータを付与して遷移する
-    router.push(`/purchase?lang=en&adults=2&fromStation=Komaba-Todaimae&toStation=Hongo 3-chome`);
+    // 1.5秒待ってから遷移
+    setTimeout(() => {
+      // 指定のページにクエリパラメータを付与して遷移する
+      router.push(`/purchase?lang=en&adults=2&fromStation=Komaba-Todaimae&toStation=Hongo 3-chome`);
+    }, 1500);
   };
 
   return (
