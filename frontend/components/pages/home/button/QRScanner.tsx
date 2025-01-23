@@ -8,9 +8,22 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-export const QRScanner = () => {
+export const QRScanner = ({ language = 'ja' }: { language?: 'en' | 'ja' | 'zh' | 'ko' }) => {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const getContent = () => {
+    switch (language) {
+      case 'en':
+        return 'Scan';
+      case 'zh':
+        return '扫描';
+      case 'ko':
+        return '스캔';
+      default:
+        return 'スキャン';
+    }
+  };
 
   useEffect(() => {
     const startCamera = async () => {
@@ -58,7 +71,7 @@ export const QRScanner = () => {
         onClick={handleDummyScan}
         style={{ marginTop: '16px', padding: '8px 16px', background: '#CCCCCC' }}
       >
-        Scan
+        {getContent()}
       </button>
     </div>
   );

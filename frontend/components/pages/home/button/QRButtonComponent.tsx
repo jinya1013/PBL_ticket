@@ -12,6 +12,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
           scan: 'Scanner',
           errorMessage: 'Failed to access camera:',
           alertMessage: 'Your browser does not support camera access.',
+          closeScanner: 'Close the scanner'
         };
       case 'zh':
         return {
@@ -19,6 +20,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
           scan: '扫描',
           errorMessage: '无法访问相机:',
           alertMessage: '您的浏览器不支持相机功能。',
+          closeScanner: '关闭扫描仪'
         };
       case 'ko':
         return {
@@ -26,6 +28,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
           scan: '스캔',
           errorMessage: '카메라 접근 실패:',
           alertMessage: '브라우저가 카메라를 지원하지 않습니다。',
+          closeScanner: '스캐너 닫기'
         };
       default:
         return {
@@ -33,6 +36,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
           scan: '読み取り',
           errorMessage: 'カメラへのアクセスに失敗しました:',
           alertMessage: 'お使いのブラウザはカメラをサポートしていません。',
+          closeScanner: 'スキャナーを閉じる'
         };
     }
   };
@@ -70,7 +74,7 @@ export const QRButtonComponent = ({ language = 'ja' }: { language?: 'en' | 'ja' 
             onClick={() => setShowScanner(false)} // スキャナーを閉じるボタン
             className="mt-4 bg-gray-500 text-white p-2 rounded"
           >
-            Close the scanner
+            {content.closeScanner}
           </button>
         </div>
       )}
